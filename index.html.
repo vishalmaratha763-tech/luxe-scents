@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Scents | Premium Collection</title>
+    <style>
+        :root { --gold: #d4af37; --black: #0a0a0a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: sans-serif; background-color: var(--black); color: white; }
+        header { background: #000; padding: 25px; text-align: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 28px; font-weight: 900; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; }
+        .search-box { width: 100%; max-width: 400px; padding: 12px 20px; border: 1px solid var(--gold); border-radius: 25px; background: #1a1a1a; color: white; outline: none; }
+        .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+        .card { background: #161616; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); display: flex; flex-direction: column; transition: 0.3s; }
+        .img-box { background: white; height: 180px; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .info { padding: 15px 10px; text-align: center; flex-grow: 1; }
+        .info h3 { font-size: 14px; margin-bottom: 8px; color: #fff; height: 35px; overflow: hidden; }
+        .price { font-size: 18px; font-weight: bold; color: var(--gold); }
+        .old-price { text-decoration: line-through; color: #666; font-size: 12px; margin-left: 5px; }
+        .buy-btn { display: block; background: linear-gradient(to bottom, #fcf6ba, #bf953f); color: #000; text-align: center; padding: 12px; text-decoration: none; border-radius: 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">LUXE SCENTS</div>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search premium scents...">
+    </header>
+    <div class="container" id="productGrid"></div>
+    <script>
+        const products = [
+            { n: "Royal Oud Gold", p: "2,499", o: "4,999", i: "https://m.media-amazon.com/images/I/718MvG8i9DL._SL1500_.jpg" },
+            { n: "Midnight Bloom", p: "1,999", o: "3,499", i: "https://m.media-amazon.com/images/I/61hS3-0zNRL._SL1500_.jpg" },
+            { n: "Ocean Mist", p: "1,599", o: "2,999", i: "https://m.media-amazon.com/images/I/61-yM9oPvxL._SL1500_.jpg" },
+            { n: "Rose Velvet", p: "2,100", o: "3,800", i: "https://m.media-amazon.com/images/I/71p0M60A95L._SL1500_.jpg" },
+            { n: "Spartan Fresh", p: "1,499", o: "2,999", i: "https://picsum.photos/seed/p1/400/500" },
+            { n: "Noir Elegance", p: "2,800", o: "5,600", i: "https://picsum.photos/seed/p3/400/500" }
+        ];
+        const grid = document.getElementById('productGrid');
+        function draw(list) {
+            grid.innerHTML = list.map(p => `
+                <div class="card">
+                    <div class="img-box"><img src="${p.i}" alt="Perfume"></div>
+                    <div class="info">
+                        <h3>${p.n}</h3>
+                        <div class="price">₹${p.p} <span class="old-price">₹${p.o}</span></div>
+                        <a href="https://wa.me/917878901913?text=Bhai%20I%20want%20to%20order%20${encodeURIComponent(p.n)}" class="buy-btn">ORDER ON WHATSAPP</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        draw(products);
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            draw(products.filter(x => x.n.toLowerCase().includes(val)));
+        });
+    </script>
+</body>
+</html>
